@@ -1,6 +1,6 @@
 @font-face {
   font-family: primaryFont;
-  src: url("../public/fonts/Bangers-Regular.ttf");
+  src: url("/fonts/Bangers-Regular.ttf");
 }
 
 * {
