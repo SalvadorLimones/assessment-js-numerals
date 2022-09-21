@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
-import { convertNumberToArray } from "./utilities/convertNumberToArray";
+import { convertNumber } from "./utilities/convertNumber";
 
 function App() {
   const [num, setNum] = useState<number>(0);
-  /*   useEffect(() => {
-    convertNumberToArray(num);
-  }, [num]); */
+
   return (
     <div className="App">
       <h1>Hi!</h1>
@@ -19,7 +17,7 @@ function App() {
         onChange={(e) => setNum(Number(e.target.value))}
       />
       <div>
-        <span>{convertNumberToArray(num)}</span>
+        <span>{convertNumber(num)}</span>
       </div>
     </div>
   );
