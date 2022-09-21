@@ -2,7 +2,7 @@ import numbers from "../data/numbers.json";
 import decimals from "../data/decimals.json";
 import prefixes from "../data/prefixes.json";
 
-const addNumbersAndPrefixes = (
+/* const addNumbersAndPrefixes = (
   digit: number,
   distance: number,
   word: string
@@ -20,7 +20,7 @@ const addDecimals = (pos: number, digit: number, next: number): string => {
 
 const addHundreds = (digit: number): string => {
   return digit === 0 ? numbers[digit] : numbers[digit] + "hundred ";
-};
+}; */
 
 const tidyUp = (word: string): string => {
   word = word.trim();
@@ -29,7 +29,7 @@ const tidyUp = (word: string): string => {
 };
 
 export function replaceNumbersWithWords(arrayOfNumbers: number[]): string {
-  let numberInWords = "";
+  let numberAsWords = "";
 
   for (let pos = 0; pos < arrayOfNumbers.length; pos++) {
     const distanceFromLastDigit = arrayOfNumbers.length - 1 - pos;
@@ -37,33 +37,33 @@ export function replaceNumbersWithWords(arrayOfNumbers: number[]): string {
     const nextDigit = arrayOfNumbers[pos + 1];
     switch (distanceFromLastDigit % 3) {
       case 0:
-        numberInWords += addNumbersAndPrefixes(
+        /*         numberAsWords += addNumbersAndPrefixes(
           currentDigit,
           distanceFromLastDigit,
-          numberInWords
-        );
-        /*         numberInWords +=
-          currentDigit === 0 && numberInWords.trim().endsWith("on")
+          numberAsWords
+        ); */
+        numberAsWords +=
+          currentDigit === 0 && numberAsWords.trim().endsWith("on")
             ? numbers[currentDigit]
-            : numbers[currentDigit] + prefixes[distanceFromLastDigit / 3]; */
+            : numbers[currentDigit] + prefixes[distanceFromLastDigit / 3];
         break;
       case 1:
-        numberInWords += addDecimals(pos, currentDigit, nextDigit);
-        /*         numberInWords +=
+        /*    numberAsWords += addDecimals(pos, currentDigit, nextDigit); */
+        numberAsWords +=
           pos > 0 && (currentDigit !== 0 || nextDigit !== 0)
             ? "and " + decimals[currentDigit]
-            : decimals[currentDigit]; */
+            : decimals[currentDigit];
         break;
       case 2:
-        numberInWords += addHundreds(currentDigit);
-        /*        numberInWords +=
+        /*       numberAsWords += addHundreds(currentDigit); */
+        numberAsWords +=
           currentDigit === 0
             ? numbers[currentDigit]
-            : numbers[currentDigit] + "hundred "; */
+            : numbers[currentDigit] + "hundred ";
         break;
     }
   }
-  numberInWords = tidyUp(numberInWords);
+  numberAsWords = tidyUp(numberAsWords);
 
-  return numberInWords;
+  return numberAsWords;
 }
