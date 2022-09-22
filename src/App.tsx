@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import { convertNumber } from "./utilities/convertNumber";
+import { convertNumberToArray } from "./utilities/convertNumberToArray";
+import { replaceNumbersWithWords } from "./utilities/replaceNumbersWithWords";
 
 function App() {
   const [num, setNum] = useState<number>(0);
+  const [british, setBritish] = useState(false);
   const min = 0;
   const max = Number.MAX_SAFE_INTEGER;
 
@@ -11,6 +13,9 @@ function App() {
     const validNum = Math.max(min, Math.min(max, Number(value)));
     setNum(validNum);
   };
+
+  const convertNumber = (num: number): string =>
+    replaceNumbersWithWords(convertNumberToArray(num, british));
 
   return (
     <div className="App">
@@ -31,17 +36,22 @@ function App() {
         <p>Input a number to convert:</p>
         <input
           type="number"
-          name="number"
-          placeholder="please input a valid number"
           value={num}
           onChange={(e) => {
             handleChange(e.target.value);
           }}
         />
       </div>
+
       <div>
         <p>The converted value is:</p>
-        <span className="converted">{convertNumber(num)}</span>
+        <div className="converted">{convertNumber(num)}</div>
+        <button
+          disabled={num < 1000 || num > 1999}
+          onClick={() => setBritish(!british)}
+        >
+          toggle UK counting
+        </button>
       </div>
     </div>
   );

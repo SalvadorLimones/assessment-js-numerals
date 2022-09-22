@@ -8,3 +8,7 @@ The app can be fired up using these commands:
 
 - npm i
 - npm run dev
+
+### Run tests
+
+- npm test

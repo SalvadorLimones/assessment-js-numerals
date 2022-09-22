@@ -1,5 +1,5 @@
 import numbers from "../data/numbers.json";
-import decimals from "../data/decimals.json";
+import tens from "../data/tens.json";
 import prefixes from "../data/prefixes.json";
 
 /* const addNumbersAndPrefixes = (
@@ -12,10 +12,10 @@ import prefixes from "../data/prefixes.json";
     : numbers[digit] + prefixes[distance / 3];
 };
 
-const addDecimals = (pos: number, digit: number, next: number): string => {
+const addTens = (pos: number, digit: number, next: number): string => {
   return pos > 0 && (digit !== 0 || next !== 0)
-    ? "and " + decimals[digit]
-    : decimals[digit];
+    ? "and " + tens[digit]
+    : tens[digit];
 };
 
 const addHundreds = (digit: number): string => {
@@ -43,23 +43,22 @@ export function replaceNumbersWithWords(arrayOfNumbers: number[]): string {
           numberAsWords
         ); */
         numberAsWords +=
-          currentDigit === 0 && numberAsWords.trim().endsWith("on")
+          currentDigit === 0 &&
+          (numberAsWords.trim().endsWith("on") || pos === 0)
             ? numbers[currentDigit]
             : numbers[currentDigit] + prefixes[distanceFromLastDigit / 3];
         break;
       case 1:
-        /*    numberAsWords += addDecimals(pos, currentDigit, nextDigit); */
+        /*    numberAsWords += addTens(pos, currentDigit, nextDigit); */
         numberAsWords +=
           pos > 0 && (currentDigit !== 0 || nextDigit !== 0)
-            ? "and " + decimals[currentDigit]
-            : decimals[currentDigit];
+            ? "and " + tens[currentDigit]
+            : tens[currentDigit];
         break;
       case 2:
         /*       numberAsWords += addHundreds(currentDigit); */
         numberAsWords +=
-          currentDigit === 0
-            ? numbers[currentDigit]
-            : numbers[currentDigit] + "hundred ";
+          currentDigit !== 0 ? numbers[currentDigit] + "hundred " : "";
         break;
     }
   }
