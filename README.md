@@ -9,7 +9,7 @@ It also supports British English counting where numbers between 1000 and 2000 ar
 The below image is a shapshot of the app on mobile use with an output coresponding to the the British English counting:
 
 <p align="center">
-  <<img src="./public/snapshots/appPic.JPG " width="100">
+  <<img src="./public/snapshots/appPic.JPG " width="200">
 </p>
 
 The app was created with the use of Vite and the test cases use Vitest.
