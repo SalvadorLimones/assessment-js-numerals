@@ -2,12 +2,13 @@ import numbers from "../data/numbers.json";
 import tens from "../data/tens.json";
 import prefixes from "../data/prefixes.json";
 
-/* const addNumbersAndPrefixes = (
+const addNumbersAndPrefixes = (
   digit: number,
   distance: number,
-  word: string
+  word: string,
+  pos: number
 ): string => {
-  return digit === 0 && word.trim().endsWith("on")
+  return digit === 0 && (word.trim().endsWith("on") || pos === 0)
     ? numbers[digit]
     : numbers[digit] + prefixes[distance / 3];
 };
@@ -19,8 +20,8 @@ const addTens = (pos: number, digit: number, next: number): string => {
 };
 
 const addHundreds = (digit: number): string => {
-  return digit === 0 ? numbers[digit] : numbers[digit] + "hundred ";
-}; */
+  return digit === 0 ? "" : numbers[digit] + "hundred ";
+};
 
 const tidyUp = (word: string): string => {
   word = word.trim();
@@ -37,28 +38,18 @@ export function replaceNumbersWithWords(arrayOfNumbers: number[]): string {
     const nextDigit = arrayOfNumbers[pos + 1];
     switch (distanceFromLastDigit % 3) {
       case 0:
-        /*         numberAsWords += addNumbersAndPrefixes(
+        numberAsWords += addNumbersAndPrefixes(
           currentDigit,
           distanceFromLastDigit,
-          numberAsWords
-        ); */
-        numberAsWords +=
-          currentDigit === 0 &&
-          (numberAsWords.trim().endsWith("on") || pos === 0)
-            ? numbers[currentDigit]
-            : numbers[currentDigit] + prefixes[distanceFromLastDigit / 3];
+          numberAsWords,
+          pos
+        );
         break;
       case 1:
-        /*    numberAsWords += addTens(pos, currentDigit, nextDigit); */
-        numberAsWords +=
-          pos > 0 && (currentDigit !== 0 || nextDigit !== 0)
-            ? "and " + tens[currentDigit]
-            : tens[currentDigit];
+        numberAsWords += addTens(pos, currentDigit, nextDigit);
         break;
       case 2:
-        /*       numberAsWords += addHundreds(currentDigit); */
-        numberAsWords +=
-          currentDigit !== 0 ? numbers[currentDigit] + "hundred " : "";
+        numberAsWords += addHundreds(currentDigit);
         break;
     }
   }
