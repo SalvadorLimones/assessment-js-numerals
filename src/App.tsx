@@ -1,5 +1,5 @@
 import "./App.css";
-import InputAndOutputFields from "./components/inputAndOutputFields";
+import InputAndOutputFields from "./components/InputAndOutputFields";
 
 function App() {
   return (
