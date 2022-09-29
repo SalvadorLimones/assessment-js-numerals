@@ -1,4 +1,5 @@
 import { convertTeens } from "./convertTeens";
+import { convertToBritish } from "./convertToBritish";
 
 export function convertNumberToArray(
   number: number,
@@ -8,10 +9,8 @@ export function convertNumberToArray(
     .split("")
     .map((str) => Number(str));
 
-  if (arrayOfNumbers.length > 1)
-    arrayOfNumbers = convertTeens(arrayOfNumbers, 2);
-  if (arrayOfNumbers.length === 4 && british)
-    arrayOfNumbers = convertTeens(arrayOfNumbers, 4);
+  if (arrayOfNumbers.length > 1) arrayOfNumbers = convertTeens(arrayOfNumbers);
+  if (british) arrayOfNumbers = convertToBritish(arrayOfNumbers);
 
   return arrayOfNumbers;
 }

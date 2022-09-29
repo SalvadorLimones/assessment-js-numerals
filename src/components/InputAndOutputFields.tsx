@@ -12,7 +12,11 @@ const InputAndOutputFields = () => {
     value = value.replace(/\D/g, "");
     const validNum = Math.max(min, Math.min(max, Number(value)));
     setNum(validNum);
+    setBritish(false);
   };
+
+  const numToString = (num: number) =>
+    num === 0 ? "input a number here" : num.toLocaleString("en");
 
   const convertNumber = (num: number): string =>
     replaceNumbersWithWords(convertNumberToArray(num, british));
@@ -23,7 +27,7 @@ const InputAndOutputFields = () => {
         <p>Input a number to convert:</p>
         <input
           type="text"
-          value={num === 0 ? "input a number here" : num.toLocaleString("en")}
+          value={numToString(num)}
           onChange={(e) => {
             handleChange(e.target.value);
           }}

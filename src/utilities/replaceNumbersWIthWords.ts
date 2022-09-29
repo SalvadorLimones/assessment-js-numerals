@@ -7,10 +7,15 @@ const addNumbersAndPrefixes = (
   distance: number,
   pos: number,
   word: string
-): string =>
-  digit === 0 && (word.trim().endsWith("on") || pos === 0)
-    ? numbers[digit]
-    : numbers[digit] + prefixes[distance / 3];
+): string => {
+  const isHighestPosition = pos === 0;
+  const millionOrHigher = word.trim().endsWith("on");
+  if (digit === 0 && (millionOrHigher || isHighestPosition)) {
+    return numbers[digit];
+  } else {
+    return numbers[digit] + prefixes[distance / 3];
+  }
+};
 
 const addTens = (
   digit: number,
@@ -18,13 +23,29 @@ const addTens = (
   next: number,
   pos: number,
   prev: number
-): string =>
-  pos > 0 && (digit !== 0 || next !== 0) && (prev !== 0 || distance < 2)
-    ? "and " + tens[digit]
-    : tens[digit];
+): string => {
+  const notHighestPosition = pos > 0;
+  const thisOrNextDigitNonZero = digit !== 0 || next !== 0;
+  const prevNonZero = prev !== 0;
+  const amongstLastTwoDigits = distance < 2;
+  if (
+    notHighestPosition &&
+    thisOrNextDigitNonZero &&
+    (prevNonZero || amongstLastTwoDigits)
+  ) {
+    return "and " + tens[digit];
+  } else {
+    return tens[digit];
+  }
+};
 
-const addHundreds = (digit: number): string =>
-  digit === 0 ? "" : numbers[digit] + "hundred ";
+const addHundreds = (digit: number): string => {
+  if (digit === 0) {
+    return "";
+  } else {
+    return numbers[digit] + "hundred ";
+  }
+};
 
 const tidyUp = (word: string): string => {
   word = word.trim();
