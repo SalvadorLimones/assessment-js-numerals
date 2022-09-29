@@ -5,23 +5,26 @@ import prefixes from "../data/prefixes.json";
 const addNumbersAndPrefixes = (
   digit: number,
   distance: number,
-  word: string,
-  pos: number
-): string => {
-  return digit === 0 && (word.trim().endsWith("on") || pos === 0)
+  pos: number,
+  word: string
+): string =>
+  digit === 0 && (word.trim().endsWith("on") || pos === 0)
     ? numbers[digit]
     : numbers[digit] + prefixes[distance / 3];
-};
 
-const addTens = (pos: number, digit: number, next: number): string => {
-  return pos > 0 && (digit !== 0 || next !== 0)
+const addTens = (
+  digit: number,
+  distance: number,
+  next: number,
+  pos: number,
+  prev: number
+): string =>
+  pos > 0 && (digit !== 0 || next !== 0) && (prev !== 0 || distance < 2)
     ? "and " + tens[digit]
     : tens[digit];
-};
 
-const addHundreds = (digit: number): string => {
-  return digit === 0 ? "" : numbers[digit] + "hundred ";
-};
+const addHundreds = (digit: number): string =>
+  digit === 0 ? "" : numbers[digit] + "hundred ";
 
 const tidyUp = (word: string): string => {
   word = word.trim();
@@ -33,20 +36,28 @@ export function replaceNumbersWithWords(arrayOfNumbers: number[]): string {
   let numberAsWords = "";
 
   for (let pos = 0; pos < arrayOfNumbers.length; pos++) {
-    const distanceFromLastDigit = arrayOfNumbers.length - 1 - pos;
     const currentDigit = arrayOfNumbers[pos];
+    const distanceFromLastDigit = arrayOfNumbers.length - 1 - pos;
     const nextDigit = arrayOfNumbers[pos + 1];
+    const prevDigit = arrayOfNumbers[pos - 1];
+
     switch (distanceFromLastDigit % 3) {
       case 0:
         numberAsWords += addNumbersAndPrefixes(
           currentDigit,
           distanceFromLastDigit,
-          numberAsWords,
-          pos
+          pos,
+          numberAsWords
         );
         break;
       case 1:
-        numberAsWords += addTens(pos, currentDigit, nextDigit);
+        numberAsWords += addTens(
+          currentDigit,
+          distanceFromLastDigit,
+          nextDigit,
+          pos,
+          prevDigit
+        );
         break;
       case 2:
         numberAsWords += addHundreds(currentDigit);

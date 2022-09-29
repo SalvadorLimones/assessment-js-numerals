@@ -49,4 +49,16 @@ describe("replacing numbers from the number array with words", () => {
       "one billion"
     );
   });
+
+  it("returns the phrase 'one million one thousand and one' for the number 1001001, received as an array [1,0,0,1,0,0,1]", () => {
+    expect(replaceNumbersWithWords([1, 0, 0, 1, 0, 0, 1])).toBe(
+      "one million one thousand and one"
+    );
+  });
+
+  it("returns the phrase 'one billion one million one thousand and one' for the number 1001001001, received as an array [1,0,0,1,0,0,1,0,0,1]", () => {
+    expect(replaceNumbersWithWords([1, 0, 0, 1, 0, 0, 1, 0, 0, 1])).toBe(
+      "one billion one million one thousand and one"
+    );
+  });
 });
