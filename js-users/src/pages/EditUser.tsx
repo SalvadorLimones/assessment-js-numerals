@@ -1,6 +1,6 @@
 import UserFrom from "../components/UserFrom";
 
-const AddUser = () => {
+const EditUser = () => {
   return (
     <>
       <header>
@@ -11,7 +11,7 @@ const AddUser = () => {
                 <a href="/">Back to users list</a>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Add a new user
+                Edit user data
               </li>
             </ol>
           </nav>
@@ -20,7 +20,7 @@ const AddUser = () => {
       <main>
         <section>
           <div className="container">
-            <h1 className="text-center">Add a user</h1>
+            <h1 className="text-center">Edit user data</h1>
             <UserFrom />
           </div>
         </section>
@@ -29,4 +29,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default EditUser;

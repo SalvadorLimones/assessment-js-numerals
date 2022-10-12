@@ -15,28 +15,28 @@ export const usersApi = () => {
     }
   };
 
-  /*   const post = async (path, data) => {
+  const post = async (path: string, data: {}) => {
     try {
-      const resp = await instance.post(path, data, {
-        headers: { authorization: localStorage.getItem("token") },
-      });
+      const resp = await instance.post(path + ".json", data);
       return resp;
-    } catch (err) {
+    } catch (err: any) {
       return err.response;
     }
   };
 
+  const put = async (path: string, data: {}) => {
+    console.log("PATCH: ", path);
+    console.log("DATA: ", data);
 
-  const del = async (path) => {
     try {
-      const resp = await instance.delete(path, {
-        headers: { authorization: localStorage.getItem("token") },
-      });
+      const resp = await instance.put(path + ".json", data);
+      console.log("RESP:", resp);
       return resp;
-    } catch (err) {
+    } catch (err: any) {
+      console.log("ERROR: ", err);
       return err.response;
     }
-  }; */
+  };
 
-  return { get, /* post,   del, */ _instance: instance };
+  return { get, post, put, _instance: instance };
 };
