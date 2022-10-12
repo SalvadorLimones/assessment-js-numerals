@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { usersApi } from "../api/usersApi";
 import UserList from "../components/UserList";
 import Pagination from "../components/Pagination";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const { get } = usersApi();
@@ -59,46 +60,35 @@ const Home = () => {
         <section className="py-5">
           <div className="container">
             <h1 className="text-center">List of users</h1>
-            <div>
-              <tr>
-                <td>
-                  <input
-                    onChange={(e) => {
-                      setCurrentPage(1);
-                      setFirstName(e.target.value);
-                    }}
-                    value={firstName}
-                    type="text"
-                    className="form-control"
-                    id="firstName"
-                  ></input>
-                </td>
-                <td>
-                  <input
-                    onChange={(e) => {
-                      setCurrentPage(1);
-                      setLastName(e.target.value);
-                    }}
-                    value={lastName}
-                    type="text"
-                    className="form-control"
-                    id="lastName"
-                  ></input>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </div>
-            <div>
-              <UserList users={currentUsers} loading={loading} />
-              <Pagination
-                usersPerPage={usersPerPage}
-                totalUsers={filteredUsers.length}
-                currentPage={currentPage}
-                paginate={paginate}
-              />
-            </div>
+            <table className="table table-striped table-responsive-md">
+              <thead>
+                <tr>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Created Ad</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Lock</th>
+                </tr>
+              </thead>
+              <tbody>
+                <SearchBar
+                  setCurrentPage={setCurrentPage}
+                  firstName={firstName}
+                  setFirstName={setFirstName}
+                  lastName={lastName}
+                  setLastName={setLastName}
+                />
+                {currentUsers.map((user) => (
+                  <UserList user={user} loading={loading} />
+                ))}
+                <Pagination
+                  usersPerPage={usersPerPage}
+                  totalUsers={filteredUsers.length}
+                  currentPage={currentPage}
+                  paginate={paginate}
+                />
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

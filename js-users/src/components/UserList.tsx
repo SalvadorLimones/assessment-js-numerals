@@ -11,49 +11,34 @@ type UserProps = {
 };
 
 type UserListProps = {
-  users: UserProps[];
+  user: UserProps;
   loading: boolean;
 };
 
-function UserList({ users, loading }: UserListProps) {
+function UserList({ user, loading }: UserListProps) {
   const navigate = useNavigate();
 
   if (loading) return <h1>Loading...</h1>;
   return (
-    <table className="table table-striped table-responsive-md">
-      <thead>
-        <tr>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">Created Ad</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Lock</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) => (
-          <tr key={user.id}>
-            <td>{user.first_name}</td>
-            <td>{user.last_name}</td>
-            <td>{user.created_at}</td>
-            <td>
-              <button
-                onClick={() =>
-                  navigate(
-                    `/edit/?id=${user.id}&first=${user.first_name}&last=${user.last_name}`
-                  )
-                }
-              >
-                Edit
-              </button>
-            </td>
-            <td>
-              <button>Lock</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <tr key={user.id}>
+      <td>{user.first_name}</td>
+      <td>{user.last_name}</td>
+      <td>{user.created_at}</td>
+      <td>
+        <button
+          onClick={() =>
+            navigate(
+              `/edit/?id=${user.id}&first=${user.first_name}&last=${user.last_name}`
+            )
+          }
+        >
+          Edit
+        </button>
+      </td>
+      <td>
+        <button>Lock</button>
+      </td>
+    </tr>
   );
 }
 
