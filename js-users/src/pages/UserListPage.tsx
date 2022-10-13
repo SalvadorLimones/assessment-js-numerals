@@ -1,32 +1,55 @@
 import { useState, useEffect } from "react";
 import { usersApi } from "../api/usersApi";
-import UserList from "../components/UserList";
+import UserData from "../components/UserData";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
 
-const Home = () => {
-  const { get } = usersApi();
+type UserProps = {
+  created_at: string;
+  first_name: string;
+  id: number;
+  last_name: string;
+  status: string;
+  updated_at: string;
+  url: string;
+};
+
+const UserListPage = () => {
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(10);
+  const { get } = usersApi();
 
+  const usersPerPage = 10;
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const filteredUsers = users.filter(
-    (user) =>
+  const filteredUsers = allUsers.filter(
+    (user: UserProps) =>
       user.first_name.includes(firstName) && user.last_name.includes(lastName)
   );
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
 
-  const getUsers = async () => {
+  /*   const setUser = (user) => {
+    setAllUsers((users) =>
+      users.map((oldUser) => (oldUser.id === user.id ? user : oldUser))
+    );
+  }; */
+
+  const updateUserList = (updatedUser: UserProps) => {
+    const newUserList = allUsers.map((oldUser: UserProps) =>
+      oldUser.id === updatedUser.id ? updatedUser : oldUser
+    );
+    setAllUsers(newUserList);
+  };
+
+  const loadApiData = async () => {
     setLoading(true);
     const resp = await get("/users");
     if (resp?.status === 200) {
       console.log(resp.data);
-      setUsers(resp.data);
+      setAllUsers(resp.data);
       setLoading(false);
     }
   };
@@ -36,28 +59,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getUsers();
+    loadApiData();
     // eslint-disable-next-line
   }, []);
 
   return (
     <>
-      <header>
-        <div className="container">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb bg-white">
-              <li className="breadcrumb-item">
-                <a href="/new">Add a new user</a>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                List of current users
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </header>
       <main>
-        <section className="py-5">
+        <section className="py-3">
           <div className="container">
             <h1 className="text-center">List of users</h1>
             <table className="table table-striped table-responsive-md">
@@ -79,16 +88,20 @@ const Home = () => {
                   setLastName={setLastName}
                 />
                 {currentUsers.map((user) => (
-                  <UserList user={user} loading={loading} />
+                  <UserData
+                    user={user}
+                    loading={loading}
+                    updateUserList={updateUserList}
+                  />
                 ))}
-                <Pagination
-                  usersPerPage={usersPerPage}
-                  totalUsers={filteredUsers.length}
-                  currentPage={currentPage}
-                  paginate={paginate}
-                />
               </tbody>
             </table>
+            <Pagination
+              usersPerPage={usersPerPage}
+              totalUsers={filteredUsers.length}
+              currentPage={currentPage}
+              paginate={paginate}
+            />
           </div>
         </section>
       </main>
@@ -96,4 +109,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UserListPage;

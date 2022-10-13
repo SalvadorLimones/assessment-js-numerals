@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { addUser } from "../api/addUser";
 import { editUser } from "../api/editUser";
 
@@ -6,6 +7,7 @@ const UserFrom = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [id, setId] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(document.location.search);
@@ -57,6 +59,13 @@ const UserFrom = () => {
         className="btn btn-primary"
       >
         Submit
+      </button>
+      <button
+        onClick={() => navigate("/")}
+        type="submit"
+        className="btn btn-warning"
+      >
+        Cancel
       </button>
     </>
   );

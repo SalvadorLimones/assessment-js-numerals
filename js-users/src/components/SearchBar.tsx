@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 type SearchBarProps = {
   setCurrentPage: (number: number) => void;
   firstName: string;
@@ -13,6 +15,8 @@ const SearchBar = ({
   lastName,
   setLastName,
 }: SearchBarProps) => {
+  const navigate = useNavigate();
+
   return (
     <tr>
       <td>
@@ -40,8 +44,9 @@ const SearchBar = ({
         ></input>
       </td>
       <td></td>
-      <td></td>
-      <td></td>
+      <td colSpan={2}>
+        <button onClick={() => navigate("/new")}>Add new user</button>
+      </td>
     </tr>
   );
 };

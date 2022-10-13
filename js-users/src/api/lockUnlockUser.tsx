@@ -1,11 +1,15 @@
 import { usersApi } from "./usersApi";
 
-export async function lockUnlockUser(id: string, lock: boolean) {
+export async function lockUnlockUser(id: number, locked: boolean) {
+  console.log("ID: ", id);
+  console.log("LOCKED: ", locked);
+
   const { put } = usersApi();
   const resp = await put("/users/" + id, {
-    status: lock ? "locked" : "active",
+    status: locked ? "active" : "locked",
   });
-  if (resp?.status === 200) {
+  if (resp?.status === 204) {
     console.log(resp.data);
+    return "success";
   }
 }

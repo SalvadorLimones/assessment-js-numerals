@@ -1,4 +1,3 @@
-import { useState } from "react";
 type PaginationProps = {
   usersPerPage: number;
   totalUsers: number;
