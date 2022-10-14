@@ -72,7 +72,12 @@ const UserListPage = () => {
         <section>
           <div className="container d-flex flex-column justify-content-center align-items-center px-5 py-4">
             <h1 className="text-center mb-3">List of users</h1>
-            <button onClick={() => navigate("/new")} className="addUserButton">
+            <button
+              data-bs-toggle="tooltip"
+              title="Add a new user"
+              onClick={() => navigate("/new")}
+              className="addUserButton"
+            >
               <PersonAddAltOutlinedIcon
                 fontSize="large"
                 style={{ color: "#ffffff" }}

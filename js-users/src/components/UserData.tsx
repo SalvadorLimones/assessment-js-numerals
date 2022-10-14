@@ -24,6 +24,9 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
   const navigate = useNavigate();
   const currentUser = user;
   const userLocked = currentUser?.status === "locked";
+  const userCreadedDate = new Date(currentUser.created_at)
+    .toLocaleString()
+    .slice(0, 22);
 
   const changeUserStatus = () => {
     lockUnlockUser(currentUser.id, userLocked).then((result) => {
@@ -39,11 +42,19 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
   if (loading) return <h1>Loading...</h1>;
   return (
     <tr key={currentUser.id}>
-      <td>{currentUser.first_name}</td>
-      <td>{currentUser.last_name}</td>
-      <td>{new Date(currentUser.created_at).toString().slice(0, 24)}</td>
+      <td style={{ textDecoration: userLocked ? "line-through" : "" }}>
+        {currentUser.first_name}
+      </td>
+      <td style={{ textDecoration: userLocked ? "line-through" : "" }}>
+        {currentUser.last_name}
+      </td>
+      <td style={{ textDecoration: userLocked ? "line-through" : "" }}>
+        {userCreadedDate}
+      </td>
       <td>
         <button
+          data-bs-toggle="tooltip"
+          title="Edit user data"
           onClick={() =>
             navigate(
               `/edit/?id=${currentUser.id}&first=${currentUser.first_name}&last=${currentUser.last_name}`
@@ -56,7 +67,6 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
       <td>
         <button
           data-bs-toggle="tooltip"
-          data-bs-placement="top"
           title="Lock or unlock user"
           onClick={() => changeUserStatus()}
         >
