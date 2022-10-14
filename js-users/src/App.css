@@ -3,6 +3,11 @@
   src: url("../public/fonts/Futura\ Round.ttf");
 }
 
+@font-face {
+  font-family: extraBoldFont;
+  src: url("../public/fonts/Futura\ Round\ Cond\ Extra\ Bold.ttf");
+}
+
 body {
   background-image: url("../public/pictures/hero-home@large.webp");
   background-repeat: no-repeat;
@@ -13,16 +18,18 @@ body {
   background: rgba(101, 59, 201, 0.9);
   color: #ffffff;
   font-family: primaryFont;
+  letter-spacing: 0.02rem;
 }
 
 h1 {
   text-transform: uppercase;
-  font-weight: bold;
+  font-family: extraBoldFont;
+  font-size: 48px;
 }
 
-table {
+table,
+.form-container {
   color: #ffffff !important;
-  font-weight: bold !important;
   background: rgba(0, 0, 0, 0.24);
 }
 
@@ -66,6 +73,44 @@ button {
 .pagination > li > a {
   background: #ffffff;
   color: rgba(101, 59, 201, 0.9);
+}
+
+.submitPagePicContainer {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: #653bc9;
+}
+
+.submitPagePic {
+  position: absolute;
+  top: 60%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 230px;
+  height: 230px;
+  background-image: url("../public/pictures/pig.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+div[class^="submitPageText"] {
+  position: absolute;
+  top: 55%;
+  left: 42%;
+  z-index: 100;
+  font-family: extraBoldFont;
+  font-size: 36px;
+  text-align: center;
+}
+
+div[class="submitPageText-2"] {
+  top: 60%;
+  font-size: 28px;
 }
 
 @media screen and (max-width: 650px) {

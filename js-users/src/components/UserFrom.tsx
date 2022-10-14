@@ -38,53 +38,59 @@ const UserFrom = () => {
   return (
     <>
       {formSubmitted ? (
-        <div>
-          <p>The user form has been successfully submitted!</p>
-          <p>Returning to user list page...</p>
-        </div>
+        <>
+          <div className="submitPageText-1">Successfully submitted!</div>
+          <div className="submitPageText-2">Returning to user list page...</div>
+          <div className="submitPagePicContainer">
+            <div className="submitPagePic"></div>
+          </div>
+        </>
       ) : (
         <div className="mb-5">
-          <form>
-            <div className="mb-3">
-              <label htmlFor="firstName" className="form-label">
-                First Name
-              </label>
-              <input
-                onChange={(e) => setFirstName(e.target.value)}
-                value={firstName}
-                type="text"
-                className="form-control"
-                id="firstName"
-              ></input>
+          <h1 className="mb-3">Edit user data</h1>
+          <div className="p-5 shadow rounded form-container">
+            <form>
+              <div className="mb-3">
+                <label htmlFor="firstName" className="form-label">
+                  First Name
+                </label>
+                <input
+                  onChange={(e) => setFirstName(e.target.value)}
+                  value={firstName}
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                ></input>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="lastName" className="form-label">
+                  Last Name
+                </label>
+                <input
+                  onChange={(e) => setLastName(e.target.value)}
+                  value={lastName}
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                ></input>
+              </div>
+            </form>
+            <div className="d-flex justify-content-around">
+              <button
+                onClick={() => submitUserForm()}
+                type="submit"
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+              <button
+                onClick={() => navigate("/")}
+                type="submit"
+                className="btn btn-warning"
+              >
+                Cancel
+              </button>
             </div>
-            <div className="mb-3">
-              <label htmlFor="lastName" className="form-label">
-                Last Name
-              </label>
-              <input
-                onChange={(e) => setLastName(e.target.value)}
-                value={lastName}
-                type="text"
-                className="form-control"
-                id="lastName"
-              ></input>
-            </div>
-          </form>
-          <div className="d-flex justify-content-around">
-            <button
-              onClick={() => submitUserForm()}
-              type="submit"
-              className="btn btn-primary"
-            >
-              Submit
-            </button>
-            <button
-              onClick={() => navigate("/")}
-              type="submit"
-              className="btn btn-warning"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       )}
