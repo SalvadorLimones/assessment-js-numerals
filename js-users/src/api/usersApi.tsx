@@ -25,15 +25,10 @@ export const usersApi = () => {
   };
 
   const put = async (path: string, data: {}) => {
-    console.log("PATCH: ", path);
-    console.log("DATA: ", data);
-
     try {
       const resp = await instance.put(path + ".json", data);
-      console.log("RESP:", resp);
       return resp;
     } catch (err: any) {
-      console.log("ERROR: ", err);
       return err.response;
     }
   };

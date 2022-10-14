@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { usersApi } from "../api/usersApi";
+import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import UserData from "../components/UserData";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
@@ -15,11 +17,12 @@ type UserProps = {
 };
 
 const UserListPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [allUsers, setAllUsers] = useState([]);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [allUsers, setAllUsers] = useState<UserProps[]>([]);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const navigate = useNavigate();
   const { get } = usersApi();
 
   const usersPerPage = 10;
@@ -66,15 +69,21 @@ const UserListPage = () => {
   return (
     <>
       <main>
-        <section className="py-3">
-          <div className="container">
-            <h1 className="text-center">List of users</h1>
-            <table className="table table-striped table-responsive-md">
+        <section>
+          <div className="container d-flex flex-column justify-content-center align-items-center px-5 py-4">
+            <h1 className="text-center mb-3">List of users</h1>
+            <button onClick={() => navigate("/new")} className="addUserButton">
+              <PersonAddAltOutlinedIcon
+                fontSize="large"
+                style={{ color: "#ffffff" }}
+              />
+            </button>
+            <table className="table table-hover table-borderless table-responsive mb-3 shadow rounded ">
               <thead>
                 <tr>
                   <th scope="col">First Name</th>
                   <th scope="col">Last Name</th>
-                  <th scope="col">Created Ad</th>
+                  <th scope="col">Created</th>
                   <th scope="col">Edit</th>
                   <th scope="col">Lock</th>
                 </tr>

@@ -7,7 +7,8 @@ export async function addUser(firstName: string, lastName: string) {
     last_name: lastName,
     status: "active",
   });
-  if (resp?.status === 200) {
-    console.log(resp.data);
+
+  if (resp?.status === 201) {
+    return "success";
   }
 }

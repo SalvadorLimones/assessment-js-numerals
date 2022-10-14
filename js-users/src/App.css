@@ -1,0 +1,82 @@
+@font-face {
+  font-family: primaryFont;
+  src: url("../public/fonts/Futura\ Round.ttf");
+}
+
+body {
+  background-image: url("../public/pictures/hero-home@large.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.App {
+  min-height: 100vh;
+  background: rgba(101, 59, 201, 0.9);
+  color: #ffffff;
+  font-family: primaryFont;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+table {
+  color: #ffffff !important;
+  font-weight: bold !important;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+th {
+  text-transform: uppercase;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  color: #ffffff;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+.addUserButton {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.24);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 0px;
+}
+
+.addUserButton:hover {
+  height: 62px;
+  width: 62px;
+  box-shadow: none;
+}
+
+.pagination > .active > a {
+  color: white;
+  background: rgba(101, 59, 201, 0.9) !important;
+  border: solid 1px #ffffff !important;
+}
+
+.pagination > li > a {
+  background: #ffffff;
+  color: rgba(101, 59, 201, 0.9);
+}
+
+@media screen and (max-width: 650px) {
+  .addUserButton,
+  .addUserButton:hover {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+    border-radius: 0;
+  }
+}

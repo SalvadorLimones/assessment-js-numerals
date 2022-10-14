@@ -15,8 +15,6 @@ const SearchBar = ({
   lastName,
   setLastName,
 }: SearchBarProps) => {
-  const navigate = useNavigate();
-
   return (
     <tr>
       <td>
@@ -29,6 +27,7 @@ const SearchBar = ({
           type="text"
           className="form-control"
           id="firstName"
+          placeholder="here you can filter on first name"
         ></input>
       </td>
       <td>
@@ -41,12 +40,12 @@ const SearchBar = ({
           type="text"
           className="form-control"
           id="lastName"
+          placeholder="here you can filter on last name"
         ></input>
       </td>
       <td></td>
-      <td colSpan={2}>
-        <button onClick={() => navigate("/new")}>Add new user</button>
-      </td>
+      <td></td>
+      <td></td>
     </tr>
   );
 };

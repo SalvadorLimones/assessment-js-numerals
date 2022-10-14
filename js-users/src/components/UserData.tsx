@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { lockUnlockUser } from "../api/lockUnlockUser";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
 type UserProps = {
   created_at: string;
@@ -38,7 +41,7 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
     <tr key={currentUser.id}>
       <td>{currentUser.first_name}</td>
       <td>{currentUser.last_name}</td>
-      <td>{currentUser.status}</td>
+      <td>{new Date(currentUser.created_at).toString().slice(0, 24)}</td>
       <td>
         <button
           onClick={() =>
@@ -47,7 +50,7 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
             )
           }
         >
-          Edit
+          <ManageAccountsOutlinedIcon style={{ color: "#ffffff" }} />
         </button>
       </td>
       <td>
@@ -57,7 +60,11 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
           title="Lock or unlock user"
           onClick={() => changeUserStatus()}
         >
-          {userLocked ? "Unlock" : "Lock"}
+          {userLocked ? (
+            <LockOutlinedIcon style={{ color: "#ffffff" }} />
+          ) : (
+            <LockOpenOutlinedIcon style={{ color: "#ffffff" }} />
+          )}
         </button>
       </td>
     </tr>
