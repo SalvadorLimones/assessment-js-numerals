@@ -16,11 +16,10 @@ type UserProps = {
 
 type UserListProps = {
   user: UserProps;
-  loading: boolean;
   updateUserList: (user: UserProps) => void;
 };
 
-function UserData({ user, loading, updateUserList }: UserListProps) {
+function UserData({ user, updateUserList }: UserListProps) {
   const navigate = useNavigate();
   const currentUser = user;
   const userLocked = currentUser?.status === "locked";
@@ -39,7 +38,6 @@ function UserData({ user, loading, updateUserList }: UserListProps) {
     });
   };
 
-  if (loading) return <h1>Loading...</h1>;
   return (
     <tr key={currentUser.id}>
       <td style={{ textDecoration: userLocked ? "line-through" : "" }}>

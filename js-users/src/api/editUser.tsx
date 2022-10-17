@@ -13,7 +13,6 @@ export async function editUser(
   });
 
   if (resp?.status === 204) {
-    console.log(resp.data);
     return "success";
-  }
+  } else return resp;
 }

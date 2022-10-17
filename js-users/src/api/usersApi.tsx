@@ -11,7 +11,7 @@ export const usersApi = () => {
       const resp = await instance.get(path + ".json");
       return resp;
     } catch (err: any) {
-      return err.response;
+      return err.message;
     }
   };
 
@@ -20,7 +20,7 @@ export const usersApi = () => {
       const resp = await instance.post(path + ".json", data);
       return resp;
     } catch (err: any) {
-      return err.response;
+      return err.message;
     }
   };
 
@@ -29,7 +29,7 @@ export const usersApi = () => {
       const resp = await instance.put(path + ".json", data);
       return resp;
     } catch (err: any) {
-      return err.response;
+      return err.message;
     }
   };
 

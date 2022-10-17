@@ -18,6 +18,8 @@ type UserProps = {
 
 const UserListPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [allUsers, setAllUsers] = useState<UserProps[]>([]);
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -40,21 +42,25 @@ const UserListPage = () => {
     );
   }; */
 
-  const updateUserList = (updatedUser: UserProps) => {
-    const newUserList = allUsers.map((oldUser: UserProps) =>
-      oldUser.id === updatedUser.id ? updatedUser : oldUser
-    );
-    setAllUsers(newUserList);
-  };
-
   const loadApiData = async () => {
     setLoading(true);
+    setError(false);
     const resp = await get("/users");
     if (resp?.status === 200) {
       console.log(resp.data);
       setAllUsers(resp.data);
       setLoading(false);
+    } else {
+      setError(true);
+      setErrorMessage(resp);
     }
+  };
+
+  const updateUserList = (updatedUser: UserProps) => {
+    const newUserList = allUsers.map((oldUser: UserProps) =>
+      oldUser.id === updatedUser.id ? updatedUser : oldUser
+    );
+    setAllUsers(newUserList);
   };
 
   const paginate = (pageNumber: number) => {
@@ -67,9 +73,26 @@ const UserListPage = () => {
   }, []);
 
   return (
-    <>
-      <main>
-        <section>
+    <main>
+      <section>
+        {loading ? (
+          <div className="container vh-100 d-flex flex-column justify-content-center align-items-center ">
+            {error ? (
+              <>
+                <p>{errorMessage}</p>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  onClick={() => loadApiData()}
+                >
+                  Refresh
+                </button>
+              </>
+            ) : (
+              <div className="loadingText">Loading...</div>
+            )}
+          </div>
+        ) : (
           <div className="container d-flex flex-column justify-content-center align-items-center px-5 py-4">
             <h1 className="text-center mb-3">List of users</h1>
             <button
@@ -102,11 +125,7 @@ const UserListPage = () => {
                   setLastName={setLastName}
                 />
                 {currentUsers.map((user) => (
-                  <UserData
-                    user={user}
-                    loading={loading}
-                    updateUserList={updateUserList}
-                  />
+                  <UserData user={user} updateUserList={updateUserList} />
                 ))}
               </tbody>
             </table>
@@ -117,9 +136,9 @@ const UserListPage = () => {
               paginate={paginate}
             />
           </div>
-        </section>
-      </main>
-    </>
+        )}
+      </section>
+    </main>
   );
 };
 

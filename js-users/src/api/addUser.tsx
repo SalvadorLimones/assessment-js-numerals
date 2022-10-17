@@ -10,5 +10,5 @@ export async function addUser(firstName: string, lastName: string) {
 
   if (resp?.status === 201) {
     return "success";
-  }
+  } else return resp;
 }
