@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 type SearchBarProps = {
   setCurrentPage: (number: number) => void;
   firstName: string;

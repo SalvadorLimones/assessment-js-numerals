@@ -4,12 +4,15 @@ import { addUser } from "../api/addUser";
 import { editUser } from "../api/editUser";
 
 const UserFrom = () => {
+  const [error, setError] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [error, setError] = useState<string>("");
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
+
   const navigate = useNavigate();
+  const firstNameIsInvalid = firstName.length < 2 || firstName.length > 20;
+  const lastNameIsInvalid = lastName.length < 2 || lastName.length > 20;
 
   const submitUserForm = async () => {
     const resp =
@@ -69,7 +72,7 @@ const UserFrom = () => {
                   id="firstName"
                 ></input>
                 <div className="text, text-warning" style={{ height: "1rem" }}>
-                  {firstName.length < 2 || firstName.length > 20
+                  {firstNameIsInvalid
                     ? "Length has to be 2-20 characters!"
                     : ""}
                 </div>
@@ -86,9 +89,7 @@ const UserFrom = () => {
                   id="lastName"
                 ></input>
                 <div className="text, text-warning" style={{ height: "1rem" }}>
-                  {lastName.length < 2 || lastName.length > 20
-                    ? "Length has to be 2-20 characters!"
-                    : ""}
+                  {lastNameIsInvalid ? "Length has to be 2-20 characters!" : ""}
                 </div>
               </div>
             </form>
@@ -97,12 +98,7 @@ const UserFrom = () => {
                 onClick={() => submitUserForm()}
                 type="submit"
                 className="btn btn-primary"
-                disabled={
-                  lastName.length < 2 ||
-                  lastName.length > 20 ||
-                  firstName.length < 2 ||
-                  firstName.length > 20
-                }
+                disabled={firstNameIsInvalid || lastNameIsInvalid}
               >
                 Submit
               </button>

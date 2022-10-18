@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { usersApi } from "../api/usersApi";
-import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import { getUsers } from "../api/getUsers";
 import UserData from "../components/UserData";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
+import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 
 type UserProps = {
   created_at: string;
@@ -24,8 +24,8 @@ const UserListPage = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+
   const navigate = useNavigate();
-  const { get } = usersApi();
 
   const usersPerPage = 10;
   const indexOfLastUser = currentPage * usersPerPage;
@@ -35,26 +35,6 @@ const UserListPage = () => {
       user.first_name.includes(firstName) && user.last_name.includes(lastName)
   );
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-
-  /*   const setUser = (user) => {
-    setAllUsers((users) =>
-      users.map((oldUser) => (oldUser.id === user.id ? user : oldUser))
-    );
-  }; */
-
-  const loadApiData = async () => {
-    setLoading(true);
-    setError(false);
-    const resp = await get("/users");
-    if (resp?.status === 200) {
-      console.log(resp.data);
-      setAllUsers(resp.data);
-      setLoading(false);
-    } else {
-      setError(true);
-      setErrorMessage(resp);
-    }
-  };
 
   const updateUserList = (updatedUser: UserProps) => {
     const newUserList = allUsers.map((oldUser: UserProps) =>
@@ -68,7 +48,7 @@ const UserListPage = () => {
   };
 
   useEffect(() => {
-    loadApiData();
+    getUsers(setLoading, setError, setErrorMessage, setAllUsers);
     // eslint-disable-next-line
   }, []);
 
@@ -82,8 +62,11 @@ const UserListPage = () => {
                 <p>{errorMessage}</p>
                 <button
                   type="submit"
+                  title="reload-data"
                   className="btn btn-primary"
-                  onClick={() => loadApiData()}
+                  onClick={() =>
+                    getUsers(setLoading, setError, setErrorMessage, setAllUsers)
+                  }
                 >
                   Refresh
                 </button>
@@ -125,7 +108,11 @@ const UserListPage = () => {
                   setLastName={setLastName}
                 />
                 {currentUsers.map((user) => (
-                  <UserData user={user} updateUserList={updateUserList} />
+                  <UserData
+                    key={user.id}
+                    user={user}
+                    updateUserList={updateUserList}
+                  />
                 ))}
               </tbody>
             </table>

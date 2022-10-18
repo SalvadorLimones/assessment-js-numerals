@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { lockUnlockUser } from "../api/lockUnlockUser";
+import { formatDate } from "../utils/formatDate";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
@@ -14,18 +15,16 @@ type UserProps = {
   url: string;
 };
 
-type UserListProps = {
+type UserDataProps = {
   user: UserProps;
   updateUserList: (user: UserProps) => void;
 };
 
-function UserData({ user, updateUserList }: UserListProps) {
+function UserData({ user, updateUserList }: UserDataProps) {
   const navigate = useNavigate();
   const currentUser = user;
   const userLocked = currentUser?.status === "locked";
-  const userCreadedDate = new Date(currentUser.created_at)
-    .toLocaleString()
-    .slice(0, 22);
+  const userCreatedDate = formatDate(currentUser.created_at);
 
   const changeUserStatus = () => {
     lockUnlockUser(currentUser.id, userLocked).then((result) => {
@@ -47,7 +46,7 @@ function UserData({ user, updateUserList }: UserListProps) {
         {currentUser.last_name}
       </td>
       <td style={{ textDecoration: userLocked ? "line-through" : "" }}>
-        {userCreadedDate}
+        {userCreatedDate}
       </td>
       <td>
         <button
