@@ -1,10 +1,4 @@
-type SearchBarProps = {
-  setCurrentPage: (number: number) => void;
-  firstName: string;
-  setFirstName: (string: string) => void;
-  lastName: string;
-  setLastName: (string: string) => void;
-};
+import { SearchBarProps } from "../types/app_types";
 
 const SearchBar = ({
   setCurrentPage,

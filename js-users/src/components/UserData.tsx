@@ -1,24 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { lockUnlockUser } from "../api/lockUnlockUser";
 import { formatDate } from "../utils/formatDate";
+import { UserDataProps } from "../types/app_types";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
-
-type UserProps = {
-  created_at: string;
-  first_name: string;
-  id: number;
-  last_name: string;
-  status: string;
-  updated_at: string;
-  url: string;
-};
-
-type UserDataProps = {
-  user: UserProps;
-  updateUserList: (user: UserProps) => void;
-};
 
 function UserData({ user, updateUserList }: UserDataProps) {
   const navigate = useNavigate();

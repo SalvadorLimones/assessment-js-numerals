@@ -4,17 +4,8 @@ import { getUsers } from "../api/getUsers";
 import UserData from "../components/UserData";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
+import { UserProps } from "../types/app_types";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-
-type UserProps = {
-  created_at: string;
-  first_name: string;
-  id: number;
-  last_name: string;
-  status: string;
-  updated_at: string;
-  url: string;
-};
 
 const UserListPage = () => {
   const [loading, setLoading] = useState<boolean>(false);

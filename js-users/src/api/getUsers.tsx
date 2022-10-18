@@ -1,14 +1,5 @@
 import { usersApi } from "./usersApi";
-
-type UserProps = {
-  created_at: string;
-  first_name: string;
-  id: number;
-  last_name: string;
-  status: string;
-  updated_at: string;
-  url: string;
-};
+import { UserProps } from "../types/app_types";
 
 export async function getUsers(
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,

@@ -1,9 +1,4 @@
-type PaginationProps = {
-  usersPerPage: number;
-  totalUsers: number;
-  currentPage: number;
-  paginate: (number: number) => void;
-};
+import { PaginationProps } from "../types/app_types";
 
 const Pagination = ({
   usersPerPage,
