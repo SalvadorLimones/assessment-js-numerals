@@ -62,7 +62,7 @@ const UserFrom = () => {
             <form>
               <div className="mb-3">
                 <label htmlFor="firstName" className="form-label">
-                  First name
+                  First Name
                 </label>
                 <input
                   onChange={(e) => setFirstName(e.target.value)}
@@ -98,6 +98,7 @@ const UserFrom = () => {
                 onClick={() => submitUserForm()}
                 type="submit"
                 className="btn btn-primary"
+                id="submitButton"
                 disabled={firstNameIsInvalid || lastNameIsInvalid}
               >
                 Submit
@@ -106,6 +107,7 @@ const UserFrom = () => {
                 onClick={() => navigate("/")}
                 type="submit"
                 className="btn btn-warning"
+                id="cancelButton"
               >
                 Cancel
               </button>

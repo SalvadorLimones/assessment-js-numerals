@@ -44,79 +44,77 @@ const UserListPage = () => {
   }, []);
 
   return (
-    <main>
-      <section>
-        {loading ? (
-          <div className="container vh-100 d-flex flex-column justify-content-center align-items-center ">
-            {error ? (
-              <>
-                <p>{errorMessage}</p>
-                <button
-                  type="submit"
-                  title="reload-data"
-                  className="btn btn-primary"
-                  onClick={() =>
-                    getUsers(setLoading, setError, setErrorMessage, setAllUsers)
-                  }
-                >
-                  Refresh
-                </button>
-              </>
-            ) : (
-              <div className="loadingText">Loading...</div>
-            )}
-          </div>
-        ) : (
-          <div className="container d-flex flex-column justify-content-center align-items-center px-5 py-4">
-            <h1 className="text-center mb-3">List of users</h1>
-            <button
-              data-bs-toggle="tooltip"
-              title="Add a new user"
-              onClick={() => navigate("/new")}
-              className="addUserButton"
-            >
-              <PersonAddAltOutlinedIcon
-                fontSize="large"
-                style={{ color: "#ffffff" }}
-              />
-            </button>
-            <table className="table table-hover table-borderless table-responsive mb-3 shadow rounded ">
-              <thead>
-                <tr>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Created</th>
-                  <th scope="col">Edit</th>
-                  <th scope="col">Lock</th>
-                </tr>
-              </thead>
-              <tbody>
-                <SearchBar
-                  setCurrentPage={setCurrentPage}
-                  firstName={firstName}
-                  setFirstName={setFirstName}
-                  lastName={lastName}
-                  setLastName={setLastName}
-                />
-                {currentUsers.map((user) => (
-                  <UserData
-                    key={user.id}
-                    user={user}
-                    updateUserList={updateUserList}
-                  />
-                ))}
-              </tbody>
-            </table>
-            <Pagination
-              usersPerPage={usersPerPage}
-              totalUsers={filteredUsers.length}
-              currentPage={currentPage}
-              paginate={paginate}
+    <>
+      {loading ? (
+        <div className="container vh-100 d-flex flex-column justify-content-center align-items-center">
+          {error ? (
+            <>
+              <p>{errorMessage}</p>
+              <button
+                type="submit"
+                title="reload-data"
+                className="btn btn-primary"
+                onClick={() =>
+                  getUsers(setLoading, setError, setErrorMessage, setAllUsers)
+                }
+              >
+                Refresh
+              </button>
+            </>
+          ) : (
+            <div className="loadingText">Loading...</div>
+          )}
+        </div>
+      ) : (
+        <div className="container d-flex flex-column justify-content-center align-items-center px-5 py-4 overflow-auto">
+          <h1 className="text-center mb-3">List of users</h1>
+          <button
+            data-bs-toggle="tooltip"
+            title="Add a new user"
+            onClick={() => navigate("/new")}
+            className="addUserButton"
+          >
+            <PersonAddAltOutlinedIcon
+              fontSize="large"
+              style={{ color: "#ffffff" }}
             />
-          </div>
-        )}
-      </section>
-    </main>
+          </button>
+          <table className="table table-hover table-borderless table-responsive mb-3 shadow rounded ">
+            <thead>
+              <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Created</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Lock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <SearchBar
+                setCurrentPage={setCurrentPage}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+              />
+              {currentUsers.map((user) => (
+                <UserData
+                  key={user.id}
+                  user={user}
+                  updateUserList={updateUserList}
+                />
+              ))}
+            </tbody>
+          </table>
+          <Pagination
+            usersPerPage={usersPerPage}
+            totalUsers={filteredUsers.length}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
+        </div>
+      )}
+    </>
   );
 };
 
